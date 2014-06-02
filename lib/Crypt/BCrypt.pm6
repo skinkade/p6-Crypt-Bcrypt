@@ -23,6 +23,7 @@ class Crypt::BCrypt {
 	}
 
 	method hashpw($password, $salt) returns Str {
+		# bcrypt limits passwords to 72 characters
 		return crypt($password.substr(0, 72), $salt);
 	}
 }
