@@ -13,7 +13,7 @@ sub crypt_gensalt(Str $prefix, Int $count, Str $input, Int $size)
 
 class Crypt::BCrypt {
 	method gensalt($rounds = 12) returns Str {
-		if ($rounds > 31 || $rounds < 4) {
+		if ($rounds !~~ 4..31) {
 			die "rounds must be from 4 to 31";
 		}
 
