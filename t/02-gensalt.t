@@ -7,7 +7,7 @@ plan *;
 my Crypt::BCrypt $bc .= new();
 
 # moar sometimes dies with spesh errors running this
-if (%*ENV<XMVM_SPESH_DISABLE>:exists && %*ENV<XMVM_SPESH_DISABLE>) 	{
+if (%*ENV<MVM_SPESH_DISABLE>:exists && %*ENV<MVM_SPESH_DISABLE>) 	{
 	loop (my Int $round = 4; $round <= 31; $round++) {
 		my $gen = Crypt::BCrypt.gensalt($round);
 		 # 7 prefix + 22 encoded salt
