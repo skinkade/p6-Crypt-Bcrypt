@@ -12,12 +12,16 @@ sub crypt_gensalt(Str $prefix, Int $count, Str $input, Int $size)
 	{*}
 
 class Crypt::BCrypt {
-	method gensalt($rounds = 12) {
+	method gensalt($rounds = 12) returns Str {
+		if ($rounds > 31 || $rounds < 4) {
+			die "rounds must be from 4 to 31";
+		}
+
 		my $salt = "thisisatest12456";
 		return crypt_gensalt('$2a$', $rounds, $salt, 128);
 	}
 
-	method hashpw($password, $salt) {
+	method hashpw($password, $salt) returns Str {
 		return crypt($password, $salt);
 	}
 }
