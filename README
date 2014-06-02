@@ -1,0 +1,58 @@
+# Crypt::BCrypt #
+
+This is a basic, stop-gap implementation of bcrypt for Perl 6
+
+## Example ##
+
+	use Crypt::BCrypt;
+	my $salt = Crypt::BCrypt.gensalt(10);
+	my $hash = Crypt::BCrypt.hashpw("My password", $salt);
+	
+	my $password_attempt = Crypt::BCrypt.hashpw("My password", $hash);
+
+	if ($password_attempt ~~ $hash) {
+		return True;
+	}
+
+## Methods ##
+
+ - `gensalt(Int $rounds = 12)`
+
+	Generates a salt
+	The generated salt includes a prefix specifying the number of rounds
+	that the password will be hashed with when the returned salt is 
+	passed to hashpw
+
+ - `hashpw(Str $password, Str $salt)`
+
+	Generates a hash of the password, using the settings from the salt
+	The salt should be generated using gensalt but can be passed manually
+
+	The salt can also be a fully qualified bcrypt hash, this is useful
+	when you want to compare a string against a known hash
+
+	Example:
+
+		hashpw("MyAttemptedPassword", $known_hash);
+
+	In this example, if the result of hashpw is equal to $known_hash
+	the passwords match
+
+## Requirements ##
+
+	You must have libcrypt installed on your system
+	Your libcrypt must provide crypt() and crypt_gensalt()
+	On some distributions the provided libcrypt does not
+	provide crypt_gensalt()
+
+## Future ##
+
+	Hopefully in the future this module will ship its own libraries that
+	can be compiled on installation and not depend on external libraries
+	being available
+
+	Also, hopefully Windows support will be added at some point
+
+## Contact ##
+
+carlin in #perl6 on Freenode
