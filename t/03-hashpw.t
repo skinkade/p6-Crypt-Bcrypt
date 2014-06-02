@@ -2,7 +2,7 @@ use v6;
 use Test;
 use Crypt::BCrypt;
 
-plan *;
+plan 25;
 
 {
 
