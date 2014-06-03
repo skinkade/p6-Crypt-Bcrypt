@@ -2,6 +2,11 @@ use v6;
 use Crypt::BCrypt;
 use Test;
 
+BEGIN {
+	%*ENV<MVM_SPESH_DISABLE> = 1;
+}
+
+
 plan *;
 
 my Crypt::BCrypt $bc .= new();
