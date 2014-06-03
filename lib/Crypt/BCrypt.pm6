@@ -3,12 +3,12 @@ use NativeCall;
 
 sub crypt(Str $key, Str $setting)
 	returns Str
-	is native('libcrypt.so')
+	is native('crypt_blowfish.so')
 	{*}
 
 sub crypt_gensalt(Str $prefix, Int $count, Str $input, Int $size)
 	returns Str
-	is native('libowcrypt.so')
+	is native('crypt_blowfish.so')
 	{*}
 
 class Crypt::BCrypt {
