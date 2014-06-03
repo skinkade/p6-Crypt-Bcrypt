@@ -11,7 +11,7 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 	my $password_attempt = Crypt::BCrypt.hashpw("My password", $hash);
 
 	if ($password_attempt ~~ $hash) {
-		return True;
+		say "access granted";
 	}
 
 ## Methods ##
@@ -40,18 +40,30 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 
 ## Requirements ##
 
-	You must have libcrypt installed on your system
-	Your libcrypt must provide crypt() and crypt_gensalt()
-	On some distributions the provided libcrypt does not
-	provide crypt_gensalt()
+Your system must be capable of compiling the provided libraries
 
-## Future ##
+This should work on most Unix variants, however Windows is not currently
+supported as the library depends on the existance of /dev/urandom
 
-	Hopefully in the future this module will ship its own libraries that
-	can be compiled on installation and not depend on external libraries
-	being available
+Confirmed working on rakudo running on the MoarVM
 
-	Also, hopefully Windows support will be added at some point
+## How to ##
+
+First get your system ready for compiling
+If you installed a perl6 implementation from source you probably already
+meet this requirement
+
+On Debian-based systems this can be achieved like this:
+	apt-get install build-essential
+
+On openSUSE you can do:
+	zypper in --type pattern devel_basis
+
+Then enter the ext/ directory and run `make`, this should compile the
+library and create the crypt_blowfish.so shared library
+
+You can then run the tests like this (assuming you are in the base directory):
+	PERL6LIB=lib LD_LIBRARY_PATH=ext perl6 t/01-basic.t
 
 ## Contact ##
 
