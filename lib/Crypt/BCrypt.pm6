@@ -17,7 +17,7 @@ class Crypt::BCrypt {
 		my $fh = open('/dev/urandom');
 		my $bin = $fh.read($chars);
 		$fh.close();
-		return $bin.list.fmt('%02x', '');
+		return $bin.list.fmt('%c', '');
 	}
 
 	method gensalt($rounds = 12) returns Str {
