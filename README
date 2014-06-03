@@ -68,3 +68,9 @@ You can then run the tests like this (assuming you are in the base directory):
 ## Contact ##
 
 carlin in #perl6 on Freenode
+
+## Credit ##
+
+This module uses the Openwall crypt_blowfish library by Solar Designer
+See http://www.openwall.com/crypt/ and the header of
+<ext/crypt_blowfish-1.2/crypt_blowfish.c> for details
