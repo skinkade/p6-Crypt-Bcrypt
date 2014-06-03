@@ -3,6 +3,7 @@
     "version" : "0.0.1",
     "author" : "github:carbin",
     "description" : "Stop-gap implementation of BCrypt using NativeCall",
+    "depends" : [ "NativeCall" ]
     "provides" : {
         "Crypt::BCrypt" : "lib/Crypt/BCrypt.pm6"
     },
