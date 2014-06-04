@@ -3,26 +3,26 @@ use NativeCall;
 use LibraryMake;
 
 sub library {
-    my $so = get-vars('')<SO>;
-    for @*INC {
-        if ($_~'/crypt_blowfish'~$so).IO ~~ :f {
-            return $_~'/crypt_blowfish'~$so;
-        }
-    }
-    die "unable to find library crypt_blowfish";
+	my $so = get-vars('')<SO>;
+	for @*INC {
+		if ($_~'/crypt_blowfish'~$so).IO ~~ :f {
+			return $_~'/crypt_blowfish'~$so;
+		}
+	}
+	die "unable to find library crypt_blowfish";
 }
 
 sub crypt(Str $key, Str $setting)
 	returns Str
 	# is native('crypt_blowfish.so')
 	{*}
-	trait_mod:<is>(&crypt, :native(library));
+trait_mod:<is>(&crypt, :native(library));
 
 sub crypt_gensalt(Str $prefix, Int $count, Str $input, Int $size)
 	returns Str
 	# is native('crypt_blowfish.so')
 	{*}
-	trait_mod:<is>(&crypt_gensalt, :native(library));
+trait_mod:<is>(&crypt_gensalt, :native(library));
 
 class Crypt::BCrypt {
 	
