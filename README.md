@@ -50,20 +50,38 @@ Confirmed working on rakudo running on the MoarVM
 ## How to ##
 
 First get your system ready for compiling
-If you installed a perl6 implementation from source you probably already
+If you installed a Perl 6 implementation from source you probably already
 meet this requirement
 
 On Debian-based systems this can be achieved like this:
+
 	apt-get install build-essential
 
 On openSUSE you can do:
+
 	zypper in --type pattern devel_basis
 
-Then enter the ext/ directory and run `make`, this should compile the
-library and create the crypt_blowfish.so shared library
+### Panda ###
 
-You can then run the tests like this (assuming you are in the base directory):
-	PERL6LIB=lib LD_LIBRARY_PATH=ext perl6 t/01-basic.t
+If you have Panda installed, you can build the library by running `panda-build`.
+You can then run the tests using `panda-test` and install using `panda-install`.
+Once installed the module can be used like any other module, or you can
+manually run the tests just like any other Perl 6 code:
+
+	perl6 t/01-basic.t
+
+### Pandamonium ###
+
+If you do not have Panda installed, you should really installed Panda. However,
+if you want to build the library without Panda you can run:
+
+	perl6 Configure.pl6
+
+This builds the crypt_blowfish library and puts it in the lib/ directory.
+You can then run the tests like this:
+
+	PERL6LIB=lib perl6 t/01-basic.t
+
 
 ## Contact ##
 
