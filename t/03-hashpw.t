@@ -2,7 +2,7 @@ use v6;
 use Test;
 use Crypt::Bcrypt;
 
-plan 25;
+plan 26;
 
 {
 
@@ -51,8 +51,13 @@ is Crypt::Bcrypt.hashpw("Perl 6", $salt),
 	'matches known hash';
 
 $salt = '$2a$12$UDCJu2r7zilM3D/y7LCZoO';
-is Crypt::Bcrypt.hashpw("Crypt::Bcrypt", $salt),
+is Crypt::Bcrypt.hashpw("Crypt::BCrypt", $salt),
 	'$2a$12$UDCJu2r7zilM3D/y7LCZoO4jIZ1tBKMd6H/0Sb2.uT/rmreooZovi',
+	'matches known hash';
+
+# minor test failure when renamed module
+is Crypt::Bcrypt.hashpw("Crypt::Bcrypt", $salt),
+	'$2a$12$UDCJu2r7zilM3D/y7LCZoO1ls8HR/XESosNFmNHXj1vATyoGGYv.2',
 	'matches known hash';
 
 $salt = '$2a$12$c6mo1k8Hw.u5o1NXemxj1e';
