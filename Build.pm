@@ -1,10 +1,20 @@
+use v6;
 use Panda::Common;
 use Panda::Builder;
 use LibraryMake;
+use Shell::Command;
 
 class Build is Panda::Builder {
 	method build($dir) {
-		shell("mkdir -p $dir/blib/lib");
-		make("$dir/ext/crypt_blowfish-1.2", "$dir/blib/lib");
+		my Str $ext = "$dir/ext/crypt_blowfish-1.2";
+		my Str $blib = "$dir/blib";
+		rm_f("$ext/crypt_blowfish.so");
+		rm_f("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");
+		rm_f("$ext/wrapper.o", "$ext/x86.o");
+		rm_rf($blib);
+		mkdir("$blib/lib");
+		make($ext, "$blib/lib");
 	}
 }
+
+# vim: ft=perl6
