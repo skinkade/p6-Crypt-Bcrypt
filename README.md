@@ -29,14 +29,12 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 	The salt should be generated using gensalt but can be passed manually
 
 	The salt can also be a fully qualified bcrypt hash, this is useful
-	when you want to compare a string against a known hash
+	if you want to compare a string against a known hash
 
-	Example:
+ - `compare(Str $password, Str $hash) returns Bool`
 
-		.hash("MyAttemptedPassword", $known_hash);
-
-	In this example, if the result of hash is equal to $known_hash
-	the passwords match
+	Compares a password with a hash
+	Returns True if the given hash was created with the provided plain text
 
 ## Requirements ##
 
