@@ -72,7 +72,7 @@ manually run the tests just like any other Perl 6 code:
 
 ### Pandamonium ###
 
-If you do not have Panda installed, you should really installed Panda. However,
+If you do not have Panda installed, you should really install Panda. However,
 if you want to build the library without Panda you can run:
 
 	perl6 Configure.pl6
