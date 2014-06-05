@@ -43,7 +43,7 @@ class Crypt::Bcrypt {
 		return crypt_gensalt('$2a$', $rounds, $salt, 128);
 	}
 
-	method hashpw($password, $salt) returns Str {
+	method hash($password, $salt) returns Str {
 		# bcrypt limits passwords to 72 characters
 		return crypt($password.substr(0, 72), $salt);
 	}

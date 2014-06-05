@@ -24,44 +24,44 @@ sub addchars(int $many) {
 my $pw = addchars(72);
 
 my $salt = $bc.gensalt();
-my $hash = $bc.hashpw($pw, $salt);
+my $hash = $bc.hash($pw, $salt);
 ok $hash, 'hashed random string';
 
 my $newpw = $pw ~ addchars(42);
 is $newpw.chars, 114, 'added extra chars to string';
 
 isnt $pw, $newpw, 'pw and newpw are not the same';
-is $hash, Crypt::Bcrypt.hashpw($newpw, $salt), 'hashes match < 72 chars';
+is $hash, Crypt::Bcrypt.hash($newpw, $salt), 'hashes match < 72 chars';
 
 my $smallerpw = addchars(32);
-my $smallerhash = $bc.hashpw($smallerpw, $salt);
+my $smallerhash = $bc.hash($smallerpw, $salt);
 ok $smallerhash, 'hashed smaller string';
 
 my $newsmallerpw = $smallerpw ~ addchars(32);
 is $newsmallerpw.chars, 64, 'added extra chars';
 
 isnt $smallerpw, $newsmallerpw, 'are not the same';
-isnt $smallerhash, Crypt::Bcrypt.hashpw($newsmallerpw, $salt), 'not a match';
+isnt $smallerhash, Crypt::Bcrypt.hash($newsmallerpw, $salt), 'not a match';
 
 }
 
 my $salt = '$2a$12$.cmkW62Nm/tipf3XcROriO';
-is Crypt::Bcrypt.hashpw("Perl 6", $salt),
+is Crypt::Bcrypt.hash("Perl 6", $salt),
 	'$2a$12$.cmkW62Nm/tipf3XcROriOO8hKebDCPzOAEOI/dNS8uGZ0Wrrzy/G',
 	'matches known hash';
 
 $salt = '$2a$12$UDCJu2r7zilM3D/y7LCZoO';
-is Crypt::Bcrypt.hashpw("Crypt::BCrypt", $salt),
+is Crypt::Bcrypt.hash("Crypt::BCrypt", $salt),
 	'$2a$12$UDCJu2r7zilM3D/y7LCZoO4jIZ1tBKMd6H/0Sb2.uT/rmreooZovi',
 	'matches known hash';
 
 # minor test failure when renamed module
-is Crypt::Bcrypt.hashpw("Crypt::Bcrypt", $salt),
+is Crypt::Bcrypt.hash("Crypt::Bcrypt", $salt),
 	'$2a$12$UDCJu2r7zilM3D/y7LCZoO1ls8HR/XESosNFmNHXj1vATyoGGYv.2',
 	'matches known hash';
 
 $salt = '$2a$12$c6mo1k8Hw.u5o1NXemxj1e';
-is Crypt::Bcrypt.hashpw(
+is Crypt::Bcrypt.hash(
 	'~!@#$%^&*()_-+=qwertyuiopasdfghjklzxcvbnm1234567890{}[]<>?/.,`',
 	$salt),
 	'$2a$12$c6mo1k8Hw.u5o1NXemxj1eLdGEwF72DAERG9qtE5me17oH4DZcYf6',
@@ -77,7 +77,7 @@ my Str %hashes = Hash.new();
 # only test up to 15, starts getting too resource intensive past that point
 loop ($rounds = 4; $rounds < 16; $rounds++) {
 	my $fs = $prefix ~ $rounds.Str.fmt('%02d') ~ $suffix ~ $salt;
-	my $cr =  Crypt::Bcrypt.hashpw(
+	my $cr =  Crypt::Bcrypt.hash(
 		'~!@#$%^&*()_-+=qwertyuiopasdfghjklzxcvbnm1234567890{}[]<>?/.,`'
 		~ 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 		$fs);
@@ -98,12 +98,10 @@ is %hashes<<14>>, '$2a$14$PerlSix.PERL6/perlSIXuK2jAo/WxZW5Ss5xg6Tpty/fR5L236Oa'
 is %hashes<<15>>, '$2a$15$PerlSix.PERL6/perlSIXugXvY1a1c8BzmnTO0taVrZ3Rv3..OOyC';
 
 is '$2a$12$qXOgQR5cAL2JClCe4sYx0e6qh1Ar1CrcP6CJDFfcUJX7Gw5mLF7Xi',
-	Crypt::Bcrypt.hashpw('Perl Six!', '$2a$12$qXOgQR5cAL2JClCe4sYx0e'),
+	Crypt::Bcrypt.hash('Perl Six!', '$2a$12$qXOgQR5cAL2JClCe4sYx0e'),
 	'known hash matches';
 isnt '$2a$12$qXOgQR5cAL2JClCe4sYx0e6qh1Ar1CrcP6CJDFfcUJX7Gw5mLF7Xi',
-	Crypt::Bcrypt.hashpw('Perl 6!', '$2a$12$qXOgQR5cAL2JClCe4sYx0e'),
+	Crypt::Bcrypt.hash('Perl 6!', '$2a$12$qXOgQR5cAL2JClCe4sYx0e'),
 	'incorrect string does not match';
-
-
 
 # vim: ft=perl6

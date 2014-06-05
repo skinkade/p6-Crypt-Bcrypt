@@ -6,9 +6,9 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 
 	use Crypt::Bcrypt;
 	my $salt = Crypt::Bcrypt.gensalt(10);
-	my $hash = Crypt::Bcrypt.hashpw("My password", $salt);
+	my $hash = Crypt::Bcrypt.hash("My password", $salt);
 	
-	my $password_attempt = Crypt::Bcrypt.hashpw("My password", $hash);
+	my $password_attempt = Crypt::Bcrypt.hash("My password", $hash);
 
 	if ($password_attempt ~~ $hash) {
 		say "access granted";
@@ -21,9 +21,9 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 	Generates a salt
 	The generated salt includes a prefix specifying the number of rounds
 	that the password will be hashed with when the returned salt is 
-	passed to hashpw
+	passed to `hash`
 
- - `hashpw(Str $password, Str $salt)`
+ - `hash(Str $password, Str $salt)`
 
 	Generates a hash of the password, using the settings from the salt
 	The salt should be generated using gensalt but can be passed manually
@@ -33,9 +33,9 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 
 	Example:
 
-		hashpw("MyAttemptedPassword", $known_hash);
+		.hash("MyAttemptedPassword", $known_hash);
 
-	In this example, if the result of hashpw is equal to $known_hash
+	In this example, if the result of hash is equal to $known_hash
 	the passwords match
 
 ## Requirements ##
