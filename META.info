@@ -1,11 +1,11 @@
 {
-    "name" : "Crypt::BCrypt",
+    "name" : "Crypt::Bcrypt",
     "version" : "0.0.1",
     "author" : "github:carbin",
-    "description" : "Stop-gap implementation of BCrypt using NativeCall",
+    "description" : "Stop-gap implementation of bcrypt using NativeCall",
     "depends" : [ "NativeCall", "LibraryMake" ]
     "provides" : {
-        "Crypt::BCrypt" : "lib/Crypt/BCrypt.pm6"
+        "Crypt::Bcrypt" : "lib/Crypt/Bcrypt.pm6"
     },
-    "source-url" : "git://github.com/carbin/p6-Crypt-BCrypt.git"
+    "source-url" : "git://github.com/carbin/p6-Crypt-Bcrypt.git"
 }

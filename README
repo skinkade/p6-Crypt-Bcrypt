@@ -1,14 +1,14 @@
-# Crypt::BCrypt #
+# Crypt::Bcrypt #
 
 This is a basic, stop-gap implementation of bcrypt for Perl 6
 
 ## Example ##
 
-	use Crypt::BCrypt;
-	my $salt = Crypt::BCrypt.gensalt(10);
-	my $hash = Crypt::BCrypt.hashpw("My password", $salt);
+	use Crypt::Bcrypt;
+	my $salt = Crypt::Bcrypt.gensalt(10);
+	my $hash = Crypt::Bcrypt.hashpw("My password", $salt);
 	
-	my $password_attempt = Crypt::BCrypt.hashpw("My password", $hash);
+	my $password_attempt = Crypt::Bcrypt.hashpw("My password", $hash);
 
 	if ($password_attempt ~~ $hash) {
 		say "access granted";

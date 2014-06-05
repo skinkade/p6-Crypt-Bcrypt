@@ -24,7 +24,7 @@ sub crypt_gensalt(Str $prefix, Int $count, Str $input, Int $size)
 	{*}
 trait_mod:<is>(&crypt_gensalt, :native(library));
 
-class Crypt::BCrypt {
+class Crypt::Bcrypt {
 	
 	sub rand_chars(Int $chars = 16) {
 		my $fh = open('/dev/urandom');

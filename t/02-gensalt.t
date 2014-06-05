@@ -1,5 +1,5 @@
 use v6;
-use Crypt::BCrypt;
+use Crypt::Bcrypt;
 use Test;
 
 BEGIN {
@@ -9,12 +9,12 @@ BEGIN {
 
 plan *;
 
-my Crypt::BCrypt $bc .= new();
+my Crypt::Bcrypt $bc .= new();
 
 # moar sometimes dies with spesh errors running this
 if (%*ENV<MVM_SPESH_DISABLE>:exists && %*ENV<MVM_SPESH_DISABLE>) 	{
 	loop (my Int $round = 4; $round <= 31; $round++) {
-		my $gen = Crypt::BCrypt.gensalt($round);
+		my $gen = Crypt::Bcrypt.gensalt($round);
 		 # 7 prefix + 22 encoded salt
 		is $gen.chars, 29, 'count for ' ~ $round;
 		is $gen.substr(0, 7), '$2a$'

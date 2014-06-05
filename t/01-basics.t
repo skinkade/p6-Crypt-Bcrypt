@@ -1,16 +1,16 @@
 use v6;
 use Test;
-use Crypt::BCrypt;
+use Crypt::Bcrypt;
 
 plan 7;
 
-ok Crypt::BCrypt.new(), 'module loads';
-ok Crypt::BCrypt.gensalt(), 'gensalt called';
-ok Crypt::BCrypt.hashpw(Str.new(), Crypt::BCrypt.gensalt()), 'hashpw called';
+ok Crypt::Bcrypt.new(), 'module loads';
+ok Crypt::Bcrypt.gensalt(), 'gensalt called';
+ok Crypt::Bcrypt.hashpw(Str.new(), Crypt::Bcrypt.gensalt()), 'hashpw called';
 
-my Crypt::BCrypt $bc .= new();
+my Crypt::Bcrypt $bc .= new();
 ok $bc, 'object created';
-ok $bc ~~ Crypt::BCrypt, 'is BCrypt object';
+ok $bc ~~ Crypt::Bcrypt, 'is Crypt::Bcrypt object';
 ok $bc.gensalt(), 'gensalt called from object';
 ok $bc.hashpw(Str.new(), $bc.gensalt()), 'hashpw called from object';
 

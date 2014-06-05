@@ -1,10 +1,10 @@
 use v6;
 use Test;
-use Crypt::BCrypt;
+use Crypt::Bcrypt;
 
 plan 14;
 
-is Crypt::BCrypt.hashpw(
+is Crypt::Bcrypt.hashpw(
 		'',
 		'$2a$12$VgRlJiQzRMIXoi7fLnXRWOOkuXydB1qA5ALEoYYNHi55Z0vJxV0GS'
 	),
@@ -21,18 +21,18 @@ sub addchars(int $many) {
 
 
 loop (my Int $round = 4; $round < 15; $round++) {
-	my $salt = Crypt::BCrypt.gensalt($round);
+	my $salt = Crypt::Bcrypt.gensalt($round);
 	my $password = addchars(32);
-	my $hash = Crypt::BCrypt.hashpw($password, $salt);
+	my $hash = Crypt::Bcrypt.hashpw($password, $salt);
 
-	is $hash, Crypt::BCrypt.hashpw($password, $hash),
+	is $hash, Crypt::Bcrypt.hashpw($password, $hash),
 		'reusing hash as salt-settings works';
 }
 
-my $hash = Crypt::BCrypt.hashpw('My secret password 123',
-	Crypt::BCrypt.gensalt());
+my $hash = Crypt::Bcrypt.hashpw('My secret password 123',
+	Crypt::Bcrypt.gensalt());
 
-is $hash, Crypt::BCrypt.hashpw('My secret password 123', $hash), 'validation';
-isnt $hash, Crypt::BCrypt.hashpw('Let me in 123', $hash), 'correctly fails';
+is $hash, Crypt::Bcrypt.hashpw('My secret password 123', $hash), 'validation';
+isnt $hash, Crypt::Bcrypt.hashpw('Let me in 123', $hash), 'correctly fails';
 
 # vim: ft=perl6
