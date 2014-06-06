@@ -2,7 +2,7 @@ use v6;
 use NativeCall;
 use LibraryMake;
 
-sub library {
+sub library returns Str {
 	my $so = get-vars('')<SO>;
 	for @*INC {
 		if ($_~'/crypt_blowfish'~$so).IO ~~ :f {
@@ -26,14 +26,14 @@ trait_mod:<is>(&crypt_gensalt, :native(library));
 
 class Crypt::Bcrypt {
 	
-	sub rand_chars(Int $chars = 16) {
+	sub rand_chars(Int $chars = 16) returns Str {
 		my $fh = open('/dev/urandom');
 		my $bin = $fh.read($chars);
 		$fh.close();
 		return $bin.list.fmt('%c', '');
 	}
 
-	method gensalt($rounds = 12) returns Str {
+	method gensalt(Int $rounds = 12) returns Str {
 		# lower limit is log2(2**4 = 16) = 4
 		# upper limit is log2(2**31 = 2147483648) = 31
 		die "rounds must be between 4 and 31"
@@ -43,7 +43,7 @@ class Crypt::Bcrypt {
 		return crypt_gensalt('$2a$', $rounds, $salt, 128);
 	}
 
-	method hash($password, $salt) returns Str {
+	method hash(Str $password, Str $salt) returns Str {
 		# bcrypt limits passwords to 72 characters
 		return crypt($password.substr(0, 72), $salt);
 	}
