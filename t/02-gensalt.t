@@ -7,7 +7,7 @@ BEGIN {
 }
 
 
-plan *;
+plan 65;
 
 my Crypt::Bcrypt $bc .= new();
 

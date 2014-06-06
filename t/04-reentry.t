@@ -14,9 +14,9 @@ is Crypt::Bcrypt.hash(
 my @chars = @('a'..'z', 0..9);
 @chars .= pick(*);
 
-sub addchars(int $many) {
+sub addchars(int $many) returns Str {
 	@chars .= pick(*);
-	return @chars.pick($many);
+	return @chars.pick($many).join;
 }
 
 
