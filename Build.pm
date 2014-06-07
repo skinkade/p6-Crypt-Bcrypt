@@ -12,6 +12,7 @@ class Build is Panda::Builder {
 		rm_f("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");
 		rm_f("$ext/wrapper.o", "$ext/x86.o");
 		rm_rf($blib);
+		mkdir($blib);
 		mkdir("$blib/lib");
 		make($ext, "$blib/lib");
 	}
