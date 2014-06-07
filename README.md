@@ -10,7 +10,7 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
 	
 	my $password_attempt = Crypt::Bcrypt.hash("My password", $hash);
 
-	if ($password_attempt ~~ $hash) {
+	if (Crypt::Bcrypt.compare("My password", $hash))
 		say "access granted";
 	}
 
@@ -34,6 +34,7 @@ This is a basic, stop-gap implementation of bcrypt for Perl 6
  - `compare(Str $password, Str $hash) returns Bool`
 
 	Compares a password with a hash
+
 	Returns True if the given hash was created with the provided plain text
 
 ## Requirements ##
@@ -61,7 +62,12 @@ On openSUSE you can do:
 
 ### Panda ###
 
-If you have Panda installed, you can build the library by running `panda-build`.
+This module can be installed using panda:
+
+	panda install Crypt::Bcrypt
+
+Alternatively, you can clone the respository using git. After that, if you have
+Panda installed, you can build the library by running `panda-build`.
 You can then run the tests using `panda-test` and install using `panda-install`.
 Once installed the module can be used like any other module, or you can
 manually run the tests just like any other Perl 6 code:
