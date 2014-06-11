@@ -10,8 +10,11 @@ This is an implementation of bcrypt for Perl 6
 	
 	my $password_attempt = Crypt::Bcrypt.hash("My password", $hash);
 
-	if (Crypt::Bcrypt.compare("My password", $hash))
-		say "access granted";
+	if (Crypt::Bcrypt.compare("My password", $hash)) {
+		say 'O frabjous day! Callooh! Callay!'
+	}
+	else {
+		say 'Does not match :-(';
 	}
 
 ## Methods ##
