@@ -1,6 +1,6 @@
 # Crypt::Bcrypt #
 
-This is a basic, stop-gap implementation of bcrypt for Perl 6
+This is an implementation of bcrypt for Perl 6
 
 ## Example ##
 
