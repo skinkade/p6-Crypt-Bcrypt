@@ -2,30 +2,17 @@ use v6;
 use Crypt::Bcrypt;
 use Test;
 
-BEGIN {
-	%*ENV<MVM_SPESH_DISABLE> = 1;
-}
-
-
 plan 65;
 
 my Crypt::Bcrypt $bc .= new();
 
-# moar sometimes dies with spesh errors running this
-if (%*ENV<MVM_SPESH_DISABLE>:exists && %*ENV<MVM_SPESH_DISABLE>) 	{
-	loop (my Int $round = 4; $round <= 31; $round++) {
-		my $gen = Crypt::Bcrypt.gensalt($round);
-		 # 7 prefix + 22 encoded salt
-		is $gen.chars, 29, 'count for ' ~ $round;
-		is $gen.substr(0, 7), '$2a$'
-			~ $round.Str.fmt('%02d') ~ '$',
-			'prefix for ' ~ $round ~ ' rounds';
-	}
-}
-else {
-	my $gen = $bc.gensalt(31);
-	is $gen.chars, 29, 'count';
-	is $gen.substr(0, 7), '$2a$' ~ '31' ~ '$', 'prefix';
+loop (my Int $round = 4; $round <= 31; $round++) {
+	my $gen = Crypt::Bcrypt.gensalt($round);
+	 # 7 prefix + 22 encoded salt
+	is $gen.chars, 29, 'count for ' ~ $round;
+	is $gen.substr(0, 7), '$2a$'
+		~ $round.Str.fmt('%02d') ~ '$',
+		'prefix for ' ~ $round ~ ' rounds';
 }
 
 dies_ok { $bc.gensalt(-20) }, 'dies with negative rounds';
