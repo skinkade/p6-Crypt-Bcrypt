@@ -9,7 +9,7 @@ sub library returns Str {
 			return $_~'/crypt_blowfish'~$so;
 		}
 	}
-	die "unable to find library crypt_blowfish";
+	die 'unable to find library crypt_blowfish';
 }
 
 sub crypt(Str $key, Str $setting)
@@ -18,7 +18,7 @@ sub crypt(Str $key, Str $setting)
 	{*}
 trait_mod:<is>(&crypt, :native(library));
 
-sub crypt_gensalt(Str $prefix, Int $count, Str $input, Int $size)
+sub crypt_gensalt(Str $prefix, int32 $count, Str $input, int32 $size)
 	returns Str
 	# is native('crypt_blowfish.so')
 	{*}
