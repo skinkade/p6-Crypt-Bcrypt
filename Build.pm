@@ -1,15 +1,8 @@
 use v6;
 use Panda::Common;
 use Panda::Builder;
-use LibraryMake;
 use Shell::Command;
-
-BEGIN {
-	# hack to try and make the smoke tests pass
-	if ~$*USER ~~ 'smoker' {
-		@*INC.push: '/home/smoker/emmentaler/installlib/lib';
-	}
-}
+use ext::LibraryMake;
 
 class Build is Panda::Builder {
 	method build($dir) {
