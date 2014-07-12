@@ -49,6 +49,9 @@ supported as the library depends on the existance of /dev/urandom
 
 Confirmed working on rakudo running on the MoarVM
 
+Works on the JVM with some fiddling. If you install via Panda you will need to
+remove the compiled .jar from the installation directory.
+
 ## How to ##
 
 First get your system ready for compiling
@@ -97,5 +100,6 @@ carlin in #perl6 on Freenode
 ## Credit ##
 
 This module uses the Openwall crypt_blowfish library by Solar Designer
+
 See http://www.openwall.com/crypt/ and the header of
-<ext/crypt_blowfish-1.2/crypt_blowfish.c> for details
+ext/crypt_blowfish-1.2/crypt_blowfish.c for details
