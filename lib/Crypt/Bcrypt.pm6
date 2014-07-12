@@ -2,7 +2,7 @@ use v6;
 use NativeCall;
 use LibraryMake;
 
-sub library returns Str {
+our sub library returns Str {
 	my $so = get-vars('')<SO>;
 	for @*INC {
 		if ($_~'/crypt_blowfish'~$so).IO ~~ :f {
@@ -14,15 +14,13 @@ sub library returns Str {
 
 sub crypt(Str $key, Str $setting)
 	returns Str
-	# is native('crypt_blowfish.so')
+	is native(Crypt::Bcrypt::library)
 	{*}
-trait_mod:<is>(&crypt, :native(library));
 
 sub crypt_gensalt(Str $prefix, int32 $count, Str $input, int32 $size)
 	returns Str
-	# is native('crypt_blowfish.so')
+	is native(Crypt::Bcrypt::library)
 	{*}
-trait_mod:<is>(&crypt_gensalt, :native(library));
 
 class Crypt::Bcrypt {
 	
