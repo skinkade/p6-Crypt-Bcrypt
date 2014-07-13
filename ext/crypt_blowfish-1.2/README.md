@@ -1,3 +1,1 @@
 See the header of [crypt_blowfish.c](crypt_blowfish.c)
-
-Any modifications are released under the same terms
