@@ -55,14 +55,6 @@ First get your system ready for compiling
 If you installed a Perl 6 implementation from source you probably already
 meet this requirement
 
-On Debian-based systems this can be achieved like this:
-
-	apt-get install build-essential
-
-On openSUSE you can do:
-
-	zypper in --type pattern devel_basis
-
 ### Panda ###
 
 This module can be installed using panda:
@@ -76,19 +68,6 @@ Once installed the module can be used like any other module, or you can
 manually run the tests just like any other Perl 6 code:
 
 	perl6 t/01-basic.t
-
-### Pandamonium ###
-
-If you do not have Panda installed, you should really install Panda. However,
-if you want to build the library without Panda you can run:
-
-	perl6 Configure.pl6
-
-This builds the crypt\_blowfish library and puts it in the lib/ directory.
-You can then run the tests like this:
-
-	PERL6LIB=lib perl6 t/01-basic.t
-
 
 ## Contact ##
 
