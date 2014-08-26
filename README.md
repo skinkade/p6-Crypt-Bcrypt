@@ -107,4 +107,4 @@ The Openwall library is licensed and redistributed under the terms outlined in t
 
 LibraryMake is redistributed with this module under the terms of the MIT license. See the [LICENSE](ext/LibraryMake/LICENSE) and the header of [LibraryMake.pm6](ext/LibraryMake/LibraryMake.pm6) for details.
 
-This module is licensed under the terms of the Mozilla Public License Version 2.0. See the [LICENSE](LICENSE) file for details.
+This module is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
