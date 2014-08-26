@@ -105,6 +105,5 @@ This module contains a local copy of [LibraryMake](https://github.com/retupmoca/
 
 The Openwall library is licensed and redistributed under the terms outlined in the header of [crypt_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c). Any modifications are released under the same terms.
 
-LibraryMake is redistributed with this module under the terms of the MIT license. See the [LICENSE](ext/LibraryMake/LICENSE) and the header of [LibraryMake.pm6](ext/LibraryMake/LibraryMake.pm6) for details.
-
-This module is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+This module is released under the terms of the ISC License.
+See the [LICENSE](LICENSE) file for details.

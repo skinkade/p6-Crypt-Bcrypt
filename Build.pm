@@ -2,7 +2,6 @@ use v6;
 use Panda::Common;
 use Panda::Builder;
 use Shell::Command;
-use ext::LibraryMake::LibraryMake;
 
 class Build is Panda::Builder {
 	method build($dir) {
