@@ -84,7 +84,7 @@ if you want to build the library without Panda you can run:
 
 	perl6 Configure.pl6
 
-This builds the crypt_blowfish library and puts it in the lib/ directory.
+This builds the crypt\_blowfish library and puts it in the lib/ directory.
 You can then run the tests like this:
 
 	PERL6LIB=lib perl6 t/01-basic.t
@@ -96,14 +96,14 @@ carlin in #perl6 on Freenode
 
 ## Credit ##
 
-This module uses the Openwall crypt_blowfish library by Solar Designer. See http://www.openwall.com/crypt/ and the header of
-[crypt_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c) for details.
+This module uses the Openwall crypt\_blowfish library by Solar Designer. See http://www.openwall.com/crypt/ and the header of
+[crypt\_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c) for details.
 
 This module contains a local copy of [LibraryMake](https://github.com/retupmoca/P6-LibraryMake), for use during build time, as some system configurations have issues loading dependencies when running Build.pm.
 
 ## License ##
 
-The Openwall library is licensed and redistributed under the terms outlined in the header of [crypt_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c). Any modifications are released under the same terms.
+The Openwall library is licensed and redistributed under the terms outlined in the header of [crypt\_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c). Any modifications are released under the same terms.
 
 This module is released under the terms of the ISC License.
 See the [LICENSE](LICENSE) file for details.
