@@ -78,8 +78,6 @@ carlin in #perl6 on Freenode
 This module uses the Openwall crypt\_blowfish library by Solar Designer. See http://www.openwall.com/crypt/ and the header of
 [crypt\_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c) for details.
 
-This module contains a local copy of [LibraryMake](https://github.com/retupmoca/P6-LibraryMake), for use during build time, as some system configurations have issues loading dependencies when running Build.pm.
-
 ## License ##
 
 The Openwall library is licensed and redistributed under the terms outlined in the header of [crypt\_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c). Any modifications are released under the same terms.
