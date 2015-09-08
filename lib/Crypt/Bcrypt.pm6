@@ -20,14 +20,22 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 =end LICENSE
 
 sub library returns Str {
-	for @*INC {
-	    my $inc-path = $_.IO.path.subst(/ ['file#' || 'inst#'] /, '');
-	    my $crypt-blowfish-lib-path = $*SPEC.catfile($inc-path, "crypt_blowfish.so");
-		if $crypt-blowfish-lib-path.IO ~~ :f {
-			return $crypt-blowfish-lib-path;
+	state Str $path;
+	unless $path {
+		constant $libname = 'crypt_blowfish.so';
+		for @*INC {
+			my $inc-path = $_.IO.path.subst(/ ['file#' || 'inst#'] /, '');
+			my $check = $*SPEC.catfile($inc-path, $libname);
+			if $check.IO ~~ :f {
+				$path = $check;
+				last;
+			}
+		}
+		unless $path {
+			die "Unable to locate library: $libname";
 		}
 	}
-	die 'unable to find library crypt_blowfish';
+	$path;
 }
 
 sub crypt(Str $key, Str $setting)
