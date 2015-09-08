@@ -38,6 +38,18 @@ sub library returns Str {
 	$path;
 }
 
+my IO::Handle $urandom;
+
+BEGIN {
+	# open a handle to urandom in advance
+	# so this will keep working in a chroot
+	$urandom = open('/dev/urandom');
+}
+
+END {
+	$urandom.close();
+}
+
 sub crypt(Str $key, Str $setting)
 	returns Str
 	# is native('crypt_blowfish.so')
@@ -53,9 +65,7 @@ trait_mod:<is>(&crypt_gensalt, :native(library));
 class Crypt::Bcrypt {
 	
 	sub rand_chars(Int $chars = 16) returns Str {
-		my $fh = open('/dev/urandom');
-		my $bin = $fh.read($chars);
-		$fh.close();
+		my $bin = $urandom.read($chars);
 		return $bin.list.fmt('%c', '');
 	}
 
