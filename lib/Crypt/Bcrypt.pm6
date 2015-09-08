@@ -51,16 +51,10 @@ END {
 }
 
 sub crypt(Str $key, Str $setting)
-	returns Str
-	# is native('crypt_blowfish.so')
-	{*}
-trait_mod:<is>(&crypt, :native(library));
+is native(&library) returns Str { ... }
 
 sub crypt_gensalt(Str $prefix, int32 $count, Str $input, int32 $size)
-	returns Str
-	# is native('crypt_blowfish.so')
-	{*}
-trait_mod:<is>(&crypt_gensalt, :native(library));
+is native(&library) returns Str { ... }
 
 class Crypt::Bcrypt {
 	
