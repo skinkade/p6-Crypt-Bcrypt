@@ -1,6 +1,5 @@
 use v6;
 use NativeCall;
-use LibraryMake;
 
 =begin LICENSE
 
@@ -21,10 +20,9 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 =end LICENSE
 
 sub library returns Str {
-	my $so = get-vars('')<SO>;
 	for @*INC {
 	    my $inc-path = $_.IO.path.subst(/ ['file#' || 'inst#'] /, '');
-	    my $crypt-blowfish-lib-path = $*SPEC.catfile($inc-path, "crypt_blowfish"~$so);
+	    my $crypt-blowfish-lib-path = $*SPEC.catfile($inc-path, "crypt_blowfish.so");
 		if $crypt-blowfish-lib-path.IO ~~ :f {
 			return $crypt-blowfish-lib-path;
 		}
