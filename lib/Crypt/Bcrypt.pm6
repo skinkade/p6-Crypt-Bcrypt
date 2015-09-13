@@ -74,7 +74,6 @@ class Crypt::Bcrypt {
 	}
 
 	multi method hash(Str $password, Str $salt) returns Str {
-		# bcrypt limits passwords to 72 characters
 		return crypt($password, $salt);
 	}
 
