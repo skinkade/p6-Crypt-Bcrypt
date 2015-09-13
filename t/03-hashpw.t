@@ -2,7 +2,17 @@ use v6;
 use Test;
 use Crypt::Bcrypt;
 
-plan 26;
+plan 31;
+
+{
+
+ok Crypt::Bcrypt.hash("Perl 6"), 'hash with one param works';
+is Crypt::Bcrypt.hash("Perl 6").substr(4, 2), '12', 'defaults to rounds=12';
+is Crypt::Bcrypt.hash("Perl 6", 4).substr(4, 2), '04', 'setting rounds works';
+dies-ok { Crypt::Bcrypt.hash("Perl 6", 3) }, 'cannot use less than 4 rounds';
+dies-ok { Crypt::Bcrypt.hash("Perl 6", 32) }, 'cannot use more than 31 rounds';
+
+}
 
 {
 

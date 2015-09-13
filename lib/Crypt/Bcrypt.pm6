@@ -68,7 +68,12 @@ class Crypt::Bcrypt {
 		return crypt_gensalt('$2a$', $rounds, $salt, 128);
 	}
 
-	method hash(Str $password, Str $salt) returns Str {
+	multi method hash(Str $password, Int $rounds = 12) returns Str {
+		my $salt = self.gensalt($rounds);
+		return self.hash($password, $salt);
+	}
+
+	multi method hash(Str $password, Str $salt) returns Str {
 		# bcrypt limits passwords to 72 characters
 		return crypt($password.substr(0, 72), $salt);
 	}
