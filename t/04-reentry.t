@@ -11,12 +11,16 @@ is Crypt::Bcrypt.hash(
 	'$2a$12$VgRlJiQzRMIXoi7fLnXRWOOkuXydB1qA5ALEoYYNHi55Z0vJxV0GS',
 	'empty string';
 
-my @chars = @('a'..'z', 0..9);
+my @chars = @('a'..'z', 0..9).flat;
 @chars .= pick(*);
 
 sub addchars(int $many) returns Str {
 	@chars .= pick(*);
-	return @chars.pick($many).join;
+	my $ret = @chars.pick($many).join;
+	if $ret.chars ne $many {
+		die "addchars: returned more characters than asked for";
+	}
+	return $ret;
 }
 
 
