@@ -18,7 +18,7 @@ $difficulty = %*ENV<MAX_DIFFICULTY>.Int if %*ENV<MAX_DIFFICULTY>.defined;
 for (1..50) {
 	my Str $r = rchars();
 	my Int $c = (4..$difficulty).pick;
-	my Str $h = Crypt::Bcrypt.hash($r, Crypt::Bcrypt.gensalt($c));
+	my Str $h = Crypt::Bcrypt.hash($r, $c);
 	is Crypt::Bcrypt.hash($r, $h), $h, 'random hash matches, cost: ' ~ $c;
 
 	# $2a$12$upXWXCP1u4pBez1ArqIRX.TBg1Hb5yKgGY3aLdv0JyppifYqLNIQC

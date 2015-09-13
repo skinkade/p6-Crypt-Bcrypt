@@ -26,16 +26,14 @@ sub addchars(int $many) returns Str {
 
 
 loop (my Int $round = 4; $round < 15; $round++) {
-	my $salt = Crypt::Bcrypt.gensalt($round);
 	my $password = addchars((1..99).pick);
-	my $hash = Crypt::Bcrypt.hash($password, $salt);
+	my $hash = Crypt::Bcrypt.hash($password, $round);
 
 	is $hash, Crypt::Bcrypt.hash($password, $hash),
 		'reusing hash as salt-settings works';
 }
 
-my $hash = Crypt::Bcrypt.hash('My secret password 123',
-	Crypt::Bcrypt.gensalt());
+my $hash = Crypt::Bcrypt.hash('My secret password 123');
 
 is $hash, Crypt::Bcrypt.hash('My secret password 123', $hash), 'validation';
 isnt $hash, Crypt::Bcrypt.hash('Let me in 123', $hash), 'correctly fails';
