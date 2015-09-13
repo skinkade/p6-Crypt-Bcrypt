@@ -16,9 +16,10 @@ my @chars = @('a'..'z', 0..9).flat;
 
 sub addchars(int $many) returns Str {
 	@chars .= pick(*);
-	my $ret = @chars.pick($many).join;
+	my $ret = @chars.roll($many).join;
 	if $ret.chars ne $many {
-		die "addchars: returned more characters than asked for";
+		die "addchars: returned more characters than asked for " ~
+			"{$ret.chars} vs {$many}";
 	}
 	return $ret;
 }
@@ -26,7 +27,7 @@ sub addchars(int $many) returns Str {
 
 loop (my Int $round = 4; $round < 15; $round++) {
 	my $salt = Crypt::Bcrypt.gensalt($round);
-	my $password = addchars(32);
+	my $password = addchars((1..99).pick);
 	my $hash = Crypt::Bcrypt.hash($password, $salt);
 
 	is $hash, Crypt::Bcrypt.hash($password, $hash),
