@@ -79,8 +79,7 @@ class Crypt::Bcrypt {
 	}
 
 	method compare(Str $password, Str $hash) returns Bool {
-		return Crypt::Bcrypt.hash($password, $hash)
-		eq $hash;
+		return Crypt::Bcrypt.hash($password, $hash) eq $hash;
 	}
 }
 
