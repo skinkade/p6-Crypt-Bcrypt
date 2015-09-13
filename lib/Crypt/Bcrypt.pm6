@@ -56,21 +56,28 @@ is native(&library) returns Str { ... }
 sub crypt_gensalt(Str $prefix, int32 $count, Buf $input, int32 $size)
 is native(&library) returns Str { ... }
 
+sub crypt_ptr(Str $key, Pointer $setting)
+is native(&library) is symbol('crypt') returns Str { ... }
+
+sub crypt_gensalt_ptr(Str $prefix, int32 $count, Buf $input, int32 $size)
+is native(&library) is symbol('crypt_gensalt') returns Pointer { ... }
+
 class Crypt::Bcrypt {
 	
 	method gensalt(Int $rounds = 12) returns Str {
 		# lower limit is log2(2**4 = 16) = 4
 		# upper limit is log2(2**31 = 2147483648) = 31
-		die "rounds must be between 4 and 31"
-			unless $rounds ~~ 4..31;
+		die "rounds must be between 4 and 31" unless $rounds ~~ 4..31;
+		return crypt_gensalt('$2a$', $rounds, $urandom.read(16), 128);
+	}
 
-		my $salt = $urandom.read(16);
-		return crypt_gensalt('$2a$', $rounds, $salt, 128);
+	method !gensalt_ptr(Int $rounds = 12) returns Pointer {
+		die "rounds must be between 4 and 31" unless $rounds ~~ 4..31;
+		return crypt_gensalt_ptr('$2a$', $rounds, $urandom.read(16), 128);
 	}
 
 	multi method hash(Str $password, Int $rounds = 12) returns Str {
-		my $salt = self.gensalt($rounds);
-		return self.hash($password, $salt);
+		return crypt_ptr($password, self!gensalt_ptr($rounds));
 	}
 
 	multi method hash(Str $password, Str $salt) returns Str {
