@@ -6,7 +6,7 @@ plan 150;
 
 sub rchars returns Str {
 	my $f = open('/dev/urandom');
-	my $c = (1..72).pick(1);
+	my $c = (1..72).pick;
 	my $bin = $f.read($c);
 	$f.close();
 	return $bin.list.fmt('%c', '');
