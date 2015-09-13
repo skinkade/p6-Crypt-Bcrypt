@@ -53,23 +53,18 @@ END {
 sub crypt(Str $key, Str $setting)
 is native(&library) returns Str { ... }
 
-sub crypt_gensalt(Str $prefix, int32 $count, Str $input, int32 $size)
+sub crypt_gensalt(Str $prefix, int32 $count, Buf $input, int32 $size)
 is native(&library) returns Str { ... }
 
 class Crypt::Bcrypt {
 	
-	sub rand_chars(Int $chars = 16) returns Str {
-		my $bin = $urandom.read($chars);
-		return $bin.list.fmt('%c', '');
-	}
-
 	method gensalt(Int $rounds = 12) returns Str {
 		# lower limit is log2(2**4 = 16) = 4
 		# upper limit is log2(2**31 = 2147483648) = 31
 		die "rounds must be between 4 and 31"
 			unless $rounds ~~ 4..31;
 
-		my $salt = rand_chars();
+		my $salt = $urandom.read(16);
 		return crypt_gensalt('$2a$', $rounds, $salt, 128);
 	}
 
