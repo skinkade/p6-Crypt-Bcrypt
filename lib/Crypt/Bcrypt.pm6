@@ -28,7 +28,7 @@ sub library returns Str {
 #        if $*DISTRO.is-win {
 #            $path = 'blib\lib\crypt_blowfish.dll';
 #        } else {
-    $path = 'resources/crypt_blowfish.so';
+    $path = %?RESOURCES<crypt_blowfish.so>.Str;
 #        }
 #    }
     $path;
