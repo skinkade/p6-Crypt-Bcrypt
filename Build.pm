@@ -11,8 +11,6 @@ class Build is Panda::Builder {
 		rm_f("$ext/crypt_blowfish.so");
 		rm_f("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");
 		rm_f("$ext/wrapper.o", "$ext/x86.o");
-		rm_rf($res);
-		mkdir($res);
 		make($dir, "$res");
 	}
 }

@@ -24,13 +24,13 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 sub library returns Str {
     state Str $path;
-#    unless $path {
-#        if $*DISTRO.is-win {
-#            $path = 'blib\lib\crypt_blowfish.dll';
-#        } else {
-    $path = %?RESOURCES<crypt_blowfish.so>.Str;
-#        }
-#    }
+    unless $path {
+        if $*DISTRO.is-win {
+            $path = %?RESOURCES<crypt_blowfish.dll>.Str;
+        } else {
+            $path = %?RESOURCES<crypt_blowfish.so>.Str;
+        }
+    }
     $path;
 }
 
