@@ -23,15 +23,15 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 =end LICENSE
 
 sub library returns Str {
-	state Str $path;
-	unless $path {
-        if $*DISTRO.is-win {
-            $path = 'blib\lib\crypt_blowfish.dll';
-        } else {
-            $path = 'blib/lib/crypt_blowfish.so';
-        }
-	}
-	$path;
+    state Str $path;
+#    unless $path {
+#        if $*DISTRO.is-win {
+#            $path = 'blib\lib\crypt_blowfish.dll';
+#        } else {
+    $path = 'blib/lib/crypt_blowfish.so';
+#        }
+#    }
+    $path;
 }
 
 
@@ -52,7 +52,7 @@ sub gensalt(int $rounds where 4..31) returns Str {
 
 
 
-sub bcrypt-hash(Str $password, int $rounds = 12) returns Str is export {
+sub bcrypt-hash(Str $password, int :$rounds = 12) returns Str is export {
 	crypt($password, gensalt($rounds));
 }
 
