@@ -6,5 +6,6 @@ perl6:
 sudo: false
 install:
     - rakudobrew build-panda
+    - panda-build
     - panda installdeps .
     - panda install .
