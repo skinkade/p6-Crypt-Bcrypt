@@ -28,7 +28,7 @@ sub library returns Str {
 #        if $*DISTRO.is-win {
 #            $path = 'blib\lib\crypt_blowfish.dll';
 #        } else {
-    $path = 'blib/lib/crypt_blowfish.so';
+    $path = 'resources/crypt_blowfish.so';
 #        }
 #    }
     $path;
@@ -41,7 +41,7 @@ sub crypt(Str $key is encoded('utf8'), Str $setting is encoded('utf8'))
     returns Str 
     { ... }
 
-sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, int $size)
+sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, size_t $size)
     is native(&library)
     returns Str
     { ... }
