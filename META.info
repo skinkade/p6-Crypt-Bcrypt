@@ -8,5 +8,5 @@
     "provides" : {
         "Crypt::Bcrypt" : "lib/Crypt/Bcrypt.pm6"
     },
-    "source-url" : "git@github.com:skinkade/p6-Crypt-Bcrypt.git"
+    "source-url" : "git://github.com/skinkade/p6-Crypt-Bcrypt.git"
 }
