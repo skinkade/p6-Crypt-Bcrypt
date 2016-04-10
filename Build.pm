@@ -1,18 +1,22 @@
 use v6;
-use Panda::Common;
-use Panda::Builder;
-use Shell::Command;
 use LibraryMake;
 
-class Build is Panda::Builder {
-	method build($dir) {
-		my Str $ext = "$dir/ext/crypt_blowfish-1.3";
-		my Str $res = "$dir/resources";
-		rm_f("$ext/crypt_blowfish.so");
-		rm_f("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");
-		rm_f("$ext/wrapper.o", "$ext/x86.o");
-		make($dir, "$res");
-	}
+class Build {
+    method build($dist-path) {
+        if !$*DISTRO.is-win {
+            my Str $ext = "$dist-path/ext/crypt_blowfish-1.3";
+            my Str $res = "$dist-path/resources";
+            unlink("$ext/crypt_blowfish.so");
+            unlink("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");
+            unlink("$ext/wrapper.o", "$ext/x86.o");
+            make($dist-path, "$res");
+        }
+    }
+
+    method isa($what) {
+        return True if $what.^name eq 'Panda::Builder';
+        callsame;
+    }
 }
 
 # vim: ft=perl6
