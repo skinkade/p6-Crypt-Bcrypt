@@ -1,6 +1,7 @@
 use v6;
 use strict;
 use NativeCall;
+use Crypt::Random;
 
 =begin LICENSE
 
@@ -33,22 +34,6 @@ sub library returns Str {
 	$path;
 }
 
-my IO::Handle $urandom;
-my Sub $check_thread_exit = sub { Mu; }
-
-BEGIN {
-	# open a handle to urandom in advance
-	# so this will keep working in a chroot
-	$urandom = open('/dev/urandom');
-}
-
-END {
-	$check_thread_exit = sub {
-		die 'The main thread has exited. Call finish() on your threads.';
-	}
-	$urandom.close();
-}
-
 
 
 sub crypt(Str $key is encoded('utf8'), Str $setting is encoded('utf8'))
@@ -62,17 +47,16 @@ sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, int
     { ... }
 
 sub gensalt(int $rounds where 4..31) returns Str {
-	$check_thread_exit();
-	return crypt_gensalt('$2a$', $rounds, $urandom.read(16), 128);
+	crypt_gensalt('$2a$', $rounds, crypt_random_buf(16), 128);
 }
 
 
 
 sub bcrypt-hash(Str $password, int $rounds = 12) returns Str is export {
-	return crypt($password, gensalt($rounds));
+	crypt($password, gensalt($rounds));
 }
 
 sub bcrypt-match(Str $password, Str $hash) returns Bool is export {
-	return crypt($password, $hash) eq $hash;
+	crypt($password, $hash) eq $hash;
 }
 
