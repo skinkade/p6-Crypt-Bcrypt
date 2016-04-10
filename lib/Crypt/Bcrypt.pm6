@@ -47,7 +47,7 @@ sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, int
     { ... }
 
 sub gensalt(int $rounds where 4..31) returns Str {
-	crypt_gensalt('$2a$', $rounds, crypt_random_buf(16), 128);
+	crypt_gensalt('$2b$', $rounds, crypt_random_buf(16), 128);
 }
 
 

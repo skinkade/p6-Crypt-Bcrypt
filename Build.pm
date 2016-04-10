@@ -6,7 +6,7 @@ use LibraryMake;
 
 class Build is Panda::Builder {
 	method build($dir) {
-		my Str $ext = "$dir/ext/crypt_blowfish-1.2";
+		my Str $ext = "$dir/ext/crypt_blowfish-1.3";
 		my Str $blib = "$dir/blib";
 		rm_f("$ext/crypt_blowfish.so");
 		rm_f("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");

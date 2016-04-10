@@ -19,11 +19,11 @@ Windows support is absent, though planned.
 ## Credit ##
 
 This module uses the Openwall crypt\_blowfish library by Solar Designer. See http://www.openwall.com/crypt/ and the header of
-[crypt\_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c) for details.
+[crypt\_blowfish.c](ext/crypt_blowfish-1.3/crypt_blowfish.c) for details.
 
 ## License ##
 
-The Openwall library is licensed and redistributed under the terms outlined in the header of [crypt\_blowfish.c](ext/crypt_blowfish-1.2/crypt_blowfish.c). Any modifications are released under the same terms.
+The Openwall library is licensed and redistributed under the terms outlined in the header of [crypt\_blowfish.c](ext/crypt_blowfish-1.3/crypt_blowfish.c). Any modifications are released under the same terms.
 
 This module is released under the terms of the ISC License.
 See the [LICENSE](LICENSE) file for details.

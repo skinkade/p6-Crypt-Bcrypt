@@ -4,7 +4,7 @@ CFLAGS = %CCSHARED% %CCFLAGS%
 LDSHARED = %LDSHARED%
 ASFLAGS = -c
 LDFLAGS = $(LDSHARED) -s
-DIR = ext/crypt_blowfish-1.2/
+DIR = ext/crypt_blowfish-1.3/
 
 STATIC_OBJ = \
 	%DESTDIR%/crypt_blowfish.so
