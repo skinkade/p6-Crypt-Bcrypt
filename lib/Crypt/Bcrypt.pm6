@@ -1,9 +1,11 @@
 use v6;
+use strict;
 use NativeCall;
 
 =begin LICENSE
 
 Copyright (c) 2014-2015, carlin <cb@viennan.net>
+Copyright (c) 2016, Shawn Kinkade
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -22,18 +24,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 sub library returns Str {
 	state Str $path;
 	unless $path {
-		constant $libname = 'crypt_blowfish.so';
-		for @*INC {
-			my $inc-path = $_.IO.path.subst(/ ['file#' || 'inst#'] /, '');
-			my $check = $*SPEC.catfile($inc-path, $libname);
-			if $check.IO ~~ :f {
-				$path = $check;
-				last;
-			}
-		}
-		unless $path {
-			die "Unable to locate library: $libname";
-		}
+        if $*DISTRO.is-win {
+            $path = 'blib\lib\crypt_blowfish.dll';
+        } else {
+            $path = 'blib/lib/crypt_blowfish.so';
+        }
 	}
 	$path;
 }
@@ -54,45 +49,30 @@ END {
 	$urandom.close();
 }
 
-sub crypt(Str $key, Str $setting)
-is native(&library) returns Str { ... }
 
-sub crypt_gensalt(Str $prefix, int32 $count, Buf $input, int32 $size)
-is native(&library) returns Str { ... }
 
-sub crypt_ptr(Str $key, Pointer $setting)
-is native(&library) is symbol('crypt') returns Str { ... }
+sub crypt(Str $key is encoded('utf8'), Str $setting is encoded('utf8'))
+    is native(&library)
+    returns Str 
+    { ... }
 
-sub crypt_gensalt_ptr(Str $prefix, int32 $count, Buf $input, int32 $size)
-is native(&library) is symbol('crypt_gensalt') returns Pointer { ... }
+sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, int $size)
+    is native(&library)
+    returns Str
+    { ... }
 
-class Crypt::Bcrypt {
-
-	method gensalt(Int $rounds = 12) returns Str {
-		# lower limit is log2(2**4 = 16) = 4
-		# upper limit is log2(2**31 = 2147483648) = 31
-		if $rounds < 4 or $rounds > 31 { die 'rounds must be between 4 to 31'; }
-		$check_thread_exit();
-		return crypt_gensalt('$2a$', $rounds, $urandom.read(16), 128);
-	}
-
-	method !gensalt_ptr(Int $rounds = 12) returns Pointer {
-		if $rounds < 4 or $rounds > 31 { die 'rounds must be between 4 to 31'; }
-		$check_thread_exit();
-		return crypt_gensalt_ptr('$2a$', $rounds, $urandom.read(16), 128);
-	}
-
-	multi method hash(Str $password, Int $rounds = 12) returns Str {
-		return crypt_ptr($password, self!gensalt_ptr($rounds));
-	}
-
-	multi method hash(Str $password, Str $salt) returns Str {
-		return crypt($password, $salt);
-	}
-
-	method compare(Str $password, Str $hash) returns Bool {
-		return Crypt::Bcrypt.hash($password, $hash) eq $hash;
-	}
+sub gensalt(int $rounds where 4..31) returns Str {
+	$check_thread_exit();
+	return crypt_gensalt('$2a$', $rounds, $urandom.read(16), 128);
 }
 
-# vim: ft=perl6
+
+
+sub bcrypt-hash(Str $password, int $rounds = 12) returns Str is export {
+	return crypt($password, gensalt($rounds));
+}
+
+sub bcrypt-match(Str $password, Str $hash) returns Bool is export {
+	return crypt($password, $hash) eq $hash;
+}
+
