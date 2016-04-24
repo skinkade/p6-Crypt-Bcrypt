@@ -3,6 +3,8 @@
 
 Easy `bcrypt` password hashing in Perl6.
 
+
+
 ## Synopsis ##
 Password hashing and verification are one function each, and utilze a
 crypt()-style output string:
@@ -22,8 +24,7 @@ False
 $2b$15$BcxIqbIcb1bDt3SHkEjO/ePcdeNV8f2xeFSQTyoiidYGUA03lptrm
 ```
 
-## Windows ##
-Windows support is absent, though planned.
+
 
 ## Credit ##
 
