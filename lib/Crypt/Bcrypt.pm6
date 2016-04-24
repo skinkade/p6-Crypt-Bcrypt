@@ -22,27 +22,17 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 =end LICENSE
 
-sub library returns Str {
-    state Str $path;
-    unless $path {
-        if $*DISTRO.is-win {
-            $path = %?RESOURCES<crypt_blowfish.dll>.Str;
-        } else {
-            $path = %?RESOURCES<crypt_blowfish.so>.Str;
-        }
-    }
-    $path;
-}
+constant BCRYPT = %?RESOURCES<crypt_blowfish.so>.Str;
 
 
 
 sub crypt(Str $key is encoded('utf8'), Str $setting is encoded('utf8'))
-    is native(&library)
+    is native(BCRYPT)
     returns Str 
     { * }
 
 sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, size_t $size)
-    is native(&library)
+    is native(BCRYPT)
     returns Str
     { * }
 
