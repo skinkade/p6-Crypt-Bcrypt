@@ -39,12 +39,12 @@ sub library returns Str {
 sub crypt(Str $key is encoded('utf8'), Str $setting is encoded('utf8'))
     is native(&library)
     returns Str 
-    { ... }
+    { * }
 
 sub crypt_gensalt(Str $prefix is encoded('utf8'), uint32 $count, Buf $input, size_t $size)
     is native(&library)
     returns Str
-    { ... }
+    { * }
 
 sub gensalt(int $rounds where 4..31) returns Str {
 	crypt_gensalt('$2b$', $rounds, crypt_random_buf(16), 128);

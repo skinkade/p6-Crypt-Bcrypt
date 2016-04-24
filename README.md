@@ -1,16 +1,25 @@
 # Crypt::Bcrypt #
-Bcrypt password hashing in Perl6.
+[![Build Status](https://travis-ci.org/skinkade/p6-Crypt-Bcrypt.svg?branch=master)](https://travis-ci.org/skinkade/p6-Crypt-Bcrypt)
+
+Easy `bcrypt` password hashing in Perl6.
 
 ## Synopsis ##
+Password hashing and verification are one function each, and utilze a
+crypt()-style output string:
 ```
-use Crypt::Bcrypt;
+> use Crypt::Bcrypt;
 
-# 2^12 rounds by default
-my $hash = bcrypt-hash("password");
-my $hard-hash = bcrypt-hash("password", :rounds(15));
+> my $hash = bcrypt-hash("password")
+$2b$12$EFUDTFQAf/6YwmnN/FKyX.kH0BsE/YNExuIQcI1WZXO/rwkmD8G2S
 
-bcrypt-match("password", $hash);   # True
-bcrypt-match("password1", $hash);   # False
+> bcrypt-match("password", $hash)
+True
+
+> bcrypt-match("wrong", $hash)
+False
+
+> bcrypt-hash("password", :rounds(15))
+$2b$15$BcxIqbIcb1bDt3SHkEjO/ePcdeNV8f2xeFSQTyoiidYGUA03lptrm
 ```
 
 ## Windows ##
