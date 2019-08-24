@@ -10,6 +10,6 @@
     "provides" : {
         "Crypt::Bcrypt" : "lib/Crypt/Bcrypt.pm6"
     },
-    "resources" : [ "crypt_blowfish.so" ],
+    "resources" : [ "libraries/crypt_blowfish" ],
     "source-url" : "git://github.com/skinkade/p6-Crypt-Bcrypt.git"
 }

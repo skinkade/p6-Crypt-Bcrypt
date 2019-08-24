@@ -2,22 +2,24 @@ use v6;
 use LibraryMake;
 
 class Build {
-    method build($dist-path) {
-        if !$*DISTRO.is-win {
-            my Str $ext = "$dist-path/ext/crypt_blowfish-1.3";
-            my Str $res = "$dist-path/resources";
-            mkdir($res);
-            unlink("$ext/crypt_blowfish.so");
-            unlink("$ext/crypt_blowfish.o", "$ext/crypt_gensalt.o");
-            unlink("$ext/wrapper.o", "$ext/x86.o");
-            make($dist-path, "$res");
-        }
+    sub make(Str $folder, Str $destfolder, IO() :$libname!) {
+        my %vars = LibraryMake::get-vars($destfolder);
+        %vars<LIB_NAME> = ~ $*VM.platform-library-name($libname);
+        mkdir($destfolder);
+        LibraryMake::process-makefile($folder, %vars);
+        shell(%vars<MAKE>);
     }
 
-    method isa($what) {
-        return True if $what.^name eq 'Panda::Builder';
-        callsame;
+    method build($workdir) {
+        my $destdir = 'resources/libraries';
+        mkdir 'resources';
+        mkdir $destdir;
+        make($workdir, $destdir, :libname<bcrypt>);
+        True;
     }
+
 }
 
-# vim: ft=perl6
+sub MAIN(Str $working-directory = '.' ) {
+    Build.new.build($working-directory);
+}
