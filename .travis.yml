@@ -1,11 +1,9 @@
-language: perl6
+language: minimal
 
-perl6:
-    - 2016.01
+services:
+  - docker
 
-sudo: false
 install:
-    - rakudobrew build-panda
-    - panda installdeps .
-    - panda-build
-    - panda install .
+- docker pull jjmerelo/test-perl6
+
+script: docker run -t -v $(pwd):/test --entrypoint /bin/sh jjmerelo/test-perl6 -c "perl6 -v && apk add --update --no-cache make gcc libc-dev && zef install --deps-only . && zef build ."
