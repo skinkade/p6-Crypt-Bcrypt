@@ -1,5 +1,7 @@
 use v6;
-use strict;
+
+unit module Crypt::Bcrypt;
+
 use NativeCall;
 use Crypt::Random;
 
@@ -22,7 +24,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 =end LICENSE
 
-constant BCRYPT = %?RESOURCES<crypt_blowfish.so>.Str;
+constant BCRYPT = %?RESOURCES<libraries/crypt_blowfish>;
 
 
 
