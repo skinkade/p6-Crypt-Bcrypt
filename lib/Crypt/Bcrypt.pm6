@@ -3,6 +3,8 @@ use strict;
 use NativeCall;
 use Crypt::Random;
 
+unit module Crypt::Bcrypt;
+
 =begin LICENSE
 
 Copyright (c) 2014-2015, carlin <cb@viennan.net>
